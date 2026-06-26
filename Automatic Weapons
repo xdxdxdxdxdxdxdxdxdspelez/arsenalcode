@@ -1,0 +1,19 @@
+-- always auto
+spawn(function()
+    while task.wait(0.3) do
+        pcall(function()
+            for _, weapon in next, game.ReplicatedStorage.Weapons:GetChildren() do
+                for _, v in next, weapon:GetChildren() do
+                    -- Disable reset connections
+                    for _, conn in next, getconnections(v.Changed) do
+                        conn:Disable()
+                    end
+                    
+                    if v.Name == "Auto" or v.Name == "AutoFire" or v.Name == "Automatic" or v.Name == "AutoShoot" then
+                        v.Value = true
+                    end
+                end
+            end
+        end)
+    end
+end)
