@@ -1,0 +1,23 @@
+-- 100% accuracy and fast reload
+spawn(function()
+    while task.wait(0.3) do
+        pcall(function()
+            for _, weapon in next, game.ReplicatedStorage.Weapons:GetChildren() do
+                for _, v in next, weapon:GetChildren() do
+                    -- Disable connections that reset values
+                    for _, conn in next, getconnections(v.Changed) do
+                        conn:Disable()
+                    end
+                    
+                    if v.Name == "AReload" or v.Name == "EReload" or v.Name == "SReload" or 
+                       v.Name == "ReloadTime" or v.Name == "EReloadTime" or 
+                       v.Name == "Spread" or v.Name == "MaxSpread" or 
+                       v.Name == "Recoil" or v.Name == "RecoilControl" or 
+                       v.Name == "EquipTime" then
+                        v.Value = 0
+                    end
+                end
+            end
+        end)
+    end
+end)
