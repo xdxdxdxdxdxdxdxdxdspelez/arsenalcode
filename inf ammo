@@ -1,0 +1,19 @@
+-- infinite ammo
+local lp = game:GetService("Players").LocalPlayer
+
+spawn(function()
+    while task.wait(0.1) do
+        pcall(function()
+            game:GetService("ReplicatedStorage").wkspc.CurrentCurse.Value = "Infinite Ammo"
+            
+            local gui = lp:FindFirstChild("PlayerGui")
+            if gui and gui:FindFirstChild("GUI") then
+                local vars = gui.GUI.Client.Variables
+                if vars then
+                    vars.ammocount.Value = 99
+                    vars.ammocount2.Value = 99
+                end
+            end
+        end)
+    end
+end)
