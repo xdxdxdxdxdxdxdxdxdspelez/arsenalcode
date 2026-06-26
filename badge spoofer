@@ -1,0 +1,19 @@
+-- badge spoofer
+local lp = game:GetService("Players").LocalPlayer
+
+local function toggleBadge(badgeName, state)
+    if lp:FindFirstChild(badgeName) then
+        lp[badgeName]:Destroy()
+    end
+    if state then
+        local badge = Instance.new("IntValue")
+        badge.Name = badgeName
+        badge.Parent = lp
+    end
+end
+
+toggleBadge("IsChad", true)
+toggleBadge("VIP", true)
+toggleBadge("OldVIP", true)
+toggleBadge("Romin", true)
+toggleBadge("IsAdmin", true)
