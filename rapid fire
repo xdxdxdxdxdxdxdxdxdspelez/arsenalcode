@@ -1,0 +1,19 @@
+-- rapid fire
+spawn(function()
+    while task.wait(0.3) do
+        pcall(function()
+            for _, weapon in next, game.ReplicatedStorage.Weapons:GetChildren() do
+                for _, v in next, weapon:GetChildren() do
+                    -- Disable connections that might reset values
+                    for _, conn in next, getconnections(v.Changed) do
+                        conn:Disable()
+                    end
+                    
+                    if v.Name == "FireRate" or v.Name == "BFireRate" then
+                        v.Value = 0.02
+                    end
+                end
+            end
+        end)
+    end
+end)
