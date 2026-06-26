@@ -1,0 +1,36 @@
+-- hitbox expander
+local hitboxSize = 25
+local hitboxTransparency = 0.7
+local teamCheckMode = "Team-Based"  -- Options: "Team-Based", "FFA", "Everyone"
+
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+spawn(function()
+    while task.wait(0.1) do
+        pcall(function()
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player == lp or not player.Character then continue end
+                
+                local isEnemy = false
+                if teamCheckMode == "FFA" or teamCheckMode == "Everyone" then
+                    isEnemy = true
+                elseif teamCheckMode == "Team-Based" then
+                    isEnemy = (player.Team ~= lp.Team)
+                end
+
+                if isEnemy and player.Character then
+                    local parts = {"Head", "HumanoidRootPart", "UpperTorso", "HeadHB"}
+                    for _, partName in ipairs(parts) do
+                        local part = player.Character:FindFirstChild(partName)
+                        if part and part:IsA("BasePart") then
+                            part.CanCollide = false
+                            part.Transparency = hitboxTransparency
+                            part.Size = Vector3.new(hitboxSize, hitboxSize, hitboxSize)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
